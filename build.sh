@@ -98,7 +98,7 @@ THREADS=$(grep -c "processor" /proc/cpuinfo)
 BDATE=$(LC_ALL='en_US.utf8' date '+%b %d %Y')
 
 # directory containing cross-compiler
-GCC_COMP=$HOME/build/toolchain/gcc9/bin/aarch64-elf-
+GCC_COMP=/opt/toolchains/gcc-linaro-7.5.0-2019.12-x86_64_aarch64-linux-gnu/bin/aarch64-linux-gnu-
 # directory containing 32bit cross-compiler (COMPAT_VDSO)
 GCC_COMP_32=$HOME/build/toolchain/gcc9-32/bin/arm-eabi-
 
@@ -238,13 +238,8 @@ SETUP_BUILD() {
 BUILD_KERNEL() {
 	echo -e $COLOR_G"Compiling kernel..."$COLOR_N
 	TIMESTAMP1=$(date +%s)
-	while ! make -C "$RDIR" O=$BDIR -j"$THREADS"; do
-		read -rp "Build failed. Retry? " do_retry
-		case $do_retry in
-			Y|y) continue ;;
-			*) ABORT "Compilation discontinued." ;;
-		esac
-	done
+	make -C "$RDIR" O=$BDIR -j"$THREADS" menuconfig
+	make -C "$RDIR" O=$BDIR -j"$THREADS" || exit 1
 	TIMESTAMP2=$(date +%s)
 	BSEC=$((TIMESTAMP2-TIMESTAMP1))
 	BTIME=$(printf '%02dm:%02ds' $(($BSEC/60)) $(($BSEC%60)))

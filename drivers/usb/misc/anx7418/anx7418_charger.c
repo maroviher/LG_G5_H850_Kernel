@@ -357,9 +357,9 @@ static void chg_work(struct work_struct *w)
 		} else {
 			// Default USB Current
 			dev_info(cdev, "%s: Default USB Power\n", __func__);
-			chg->volt_max = 5000;
-			chg->curr_max = 0;
-			chg->ctype_charger = ANX7418_UNKNOWN_CHARGER;
+			chg->volt_max = 9000;
+			chg->curr_max = 1000;
+			chg->ctype_charger = ANX7418_CTYPE_CHARGER;
 		}
 	}
 

@@ -86,7 +86,10 @@ struct console *console_drivers;
 EXPORT_SYMBOL_GPL(console_drivers);
 
 #ifdef CONFIG_MACH_LGE
+#ifdef CONFIG_PRINTK
+extern void printascii(char *);
 static size_t print_time(u64 ts, struct timespec time, struct tm tmresult, u32 cpu, char *buf);
+#endif
 #endif
 
 #ifdef CONFIG_LOCKDEP
@@ -551,6 +554,7 @@ struct devkmsg_user {
 
 static ssize_t devkmsg_write(struct kiocb *iocb, struct iov_iter *from)
 {
+#ifdef CONFIG_PRINTK
 	char *buf, *line;
 	int i;
 	int level = default_message_loglevel;
@@ -597,6 +601,9 @@ static ssize_t devkmsg_write(struct kiocb *iocb, struct iov_iter *from)
 	printk_emit(facility, level, NULL, 0, "%s", line);
 	kfree(buf);
 	return ret;
+#else
+	return iocb->ki_nbytes;
+#endif
 }
 
 static ssize_t devkmsg_read(struct file *file, char __user *buf,
@@ -1928,6 +1935,7 @@ EXPORT_SYMBOL(printk_emit);
  */
 asmlinkage __visible int printk(const char *fmt, ...)
 {
+#ifdef CONFIG_PRINTK
 	va_list args;
 	int r;
 
@@ -1944,6 +1952,9 @@ asmlinkage __visible int printk(const char *fmt, ...)
 	va_end(args);
 
 	return r;
+#else
+	return 1111;
+#endif
 }
 EXPORT_SYMBOL(printk);
 

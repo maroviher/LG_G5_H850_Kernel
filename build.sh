@@ -216,7 +216,7 @@ fi
 # build commands
 CLEAN_BUILD() {
 	echo -e $COLOR_G"Cleaning build folder..."$COLOR_N
-	rm -rf $BDIR && sleep 5
+	rm -rf $BDIR
 }
 
 SETUP_BUILD() {

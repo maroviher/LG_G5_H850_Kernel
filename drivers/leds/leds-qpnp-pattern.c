@@ -406,9 +406,9 @@ static ssize_t qpnp_pattern_select(const char* string_select, size_t string_size
 		goto select_error;
 	}
 
-	printk("[RGB LED] Play pattern %d, (%s)\n",
+/*	printk("[RGB LED] Play pattern %d, (%s)\n",
 		select_scenario, qpnp_pattern_scenario_name(select_scenario));
-
+*/
 	qpnp_pattern_play(select_pattern);
 	return string_size;
 

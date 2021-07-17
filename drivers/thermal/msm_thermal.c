@@ -1035,7 +1035,7 @@ static void update_cpu_freq(int cpu)
 		trace_thermal_post_frequency_mit(cpu,
 			cpufreq_quick_get_max(cpu),
 			cpus[cpu].limited_min_freq);
-		pr_info_ratelimited("[CPU%d] : max freq = %u\n",cpu, cpus[cpu].limited_max_freq);
+//		pr_info_ratelimited("[CPU%d] : max freq = %u\n",cpu, cpus[cpu].limited_max_freq);
 		if (ret)
 			pr_err("Unable to update policy for cpu:%d. err:%d\n",
 				cpu, ret);
@@ -3625,7 +3625,7 @@ static int hotplug_notify(enum thermal_trip_type type, int temp, void *data)
 {
 	struct cpu_info *cpu_node = (struct cpu_info *)data;
 
-	pr_info_ratelimited("%s reach temp threshold: %d, cpu_bit:%lu, offline:%d, trip_type:%d\n",cpu_node->sensor_type, temp, BIT(cpu_node->cpu),cpu_node->offline,type);
+	//pr_info_ratelimited("%s reach temp threshold: %d, cpu_bit:%lu, offline:%d, trip_type:%d\n",cpu_node->sensor_type, temp, BIT(cpu_node->cpu),cpu_node->offline,type);
 
 	if (!(msm_thermal_info.core_control_mask & BIT(cpu_node->cpu)))
 	{

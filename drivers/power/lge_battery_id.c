@@ -234,7 +234,7 @@ static int lge_battery_id_probe(struct platform_device *pdev)
 		pr_err("%s : smem_alloc returns NULL\n", __func__);
 		info->batt_info_from_smem = 0;
 	} else {
-		_smem_batt_id = *smem_batt;
+		_smem_batt_id = BATT_ID_SW3800_VC0;
 		pr_info("Battery was read in sbl is = %d\n", _smem_batt_id);
 
 		/* If not 'enabled', set battery id as default */

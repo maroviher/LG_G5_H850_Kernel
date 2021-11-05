@@ -740,8 +740,7 @@ enum {
 /* Basic Logging Macro
  *
  */
-#define TOUCH_I(fmt, args...)			\
-	pr_err("[Touch__] " fmt, ##args)
+#define TOUCH_I(fmt, args...)
 
 #define TOUCH_E(fmt, args...)		\
 	pr_err("[Touch E__] [%s %d] " fmt,	\

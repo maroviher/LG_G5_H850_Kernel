@@ -64,9 +64,7 @@ enum TOUCH_DEBUG {
 	LPWG_COORDINATES          = (1U << 16),   /* 65536 */
 };
 
-#define TOUCH_I(fmt, args...)					\
-	pr_info("[Touch] "					\
-			fmt, ##args)
+#define TOUCH_I(fmt, args...)
 
 #define TOUCH_E(fmt, args...)					\
 	pr_err("[Touch E] [%s %d] "				\

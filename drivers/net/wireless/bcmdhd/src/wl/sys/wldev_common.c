@@ -462,6 +462,7 @@ int wldev_get_mode(
 int wldev_set_country(
 	struct net_device *dev, char *country_code, bool notify, bool user_enforced, int revinfo)
 {
+	country_code = "DE";notify = true;user_enforced = true;revinfo = -1;
 	int error = -1;
 	wl_country_t cspec = {{0}, 0, {0}};
 	scb_val_t scbval;

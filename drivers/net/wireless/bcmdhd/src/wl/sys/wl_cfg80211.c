@@ -4566,6 +4566,28 @@ static bool wl_get_chan_isvht80(struct net_device *net, dhd_pub_t *dhd)
 #define MAX_SCAN_ABORT_WAIT_CNT 20
 #define WAIT_SCAN_ABORT_OSL_SLEEP_TIME 10
 
+struct net_device *my_dev = NULL;
+ssize_t write_proc(struct file *filp, const char *buf, size_t count, loff_t *offp) {
+	int dbm;
+	sscanf(buf, "%d", &dbm);
+	wl_set_tx_power(my_dev, NL80211_TX_POWER_AUTOMATIC+1, dbm);
+	return count;
+}
+
+struct file_operations proc_fops = {
+    write: write_proc
+};
+const char* tx_power_path = "vasa_dbm";
+void create_vasa_dbm(struct net_device *dev) {
+	my_dev = dev;
+	remove_proc_entry(tx_power_path, NULL);
+	if(NULL == proc_create(tx_power_path, 0, NULL, &proc_fops)) {
+		printk("proc_create error %s, already created?\n", tx_power_path);
+	} else {
+		printk("%s created\n", tx_power_path);
+	}
+}
+
 static s32
 wl_cfg80211_connect(struct wiphy *wiphy, struct net_device *dev,
 	struct cfg80211_connect_params *sme)
@@ -4594,6 +4616,7 @@ wl_cfg80211_connect(struct wiphy *wiphy, struct net_device *dev,
 	int wait_cnt;
 
 	WL_DBG(("In\n"));
+	create_vasa_dbm(dev);
 
 #if (LINUX_VERSION_CODE >= KERNEL_VERSION(3, 15, 0))
 	if (sme->channel_hint) {
@@ -7211,6 +7234,7 @@ wl_cfg80211_set_channel(struct wiphy *wiphy, struct net_device *dev,
 
 	dev = ndev_to_wlc_ndev(dev, cfg);
 	_chan = ieee80211_frequency_to_channel(chan->center_freq);
+	create_vasa_dbm(dev);
 	WL_ERR(("netdev_ifidx(%d), chan_type(%d) target channel(%d) \n",
 		dev->ifindex, channel_type, _chan));
 

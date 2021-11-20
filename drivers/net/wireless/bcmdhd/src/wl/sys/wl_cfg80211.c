@@ -5708,12 +5708,13 @@ wl_cfg80211_get_station(struct wiphy *wiphy, struct net_device *dev,
 			err = -ENODEV;
 			return err;
 		}
+/*
 		curmacp = wl_read_prof(cfg, dev, WL_PROF_BSSID);
 		if (memcmp(mac, curmacp, ETHER_ADDR_LEN)) {
 			WL_ERR(("Wrong Mac address: "MACDBG" != "MACDBG"\n",
 				MAC2STRDBG(mac), MAC2STRDBG(curmacp)));
 		}
-
+*/
 		/* Report the current tx rate */
 		rate = 0;
 		err = wldev_ioctl_get(dev, WLC_GET_RATE, &rate, sizeof(rate));

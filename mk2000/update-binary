@@ -151,13 +151,13 @@ if [ -f version ]; then
   ui_print " " " ";
 fi;
 
-if [ "$(file_getprop anykernel.sh do.droidcheck)" == 1 ]; then
-  if ! $bb grep -q 'ro.build.version.release=8' /system/build.prop; then
-    ui_print " ";
-    ui_print "This kernel is only for Android Oreo!";
-    exit 1;
-  fi;
-fi;
+#if [ "$(file_getprop anykernel.sh do.droidcheck)" == 1 ]; then
+#  if ! $bb grep -q 'ro.build.version.release=8' /system/build.prop; then
+#    ui_print " ";
+#    ui_print "This kernel is only for Android Oreo!";
+#    exit 1;
+#  fi;
+#fi;
 
 ui_print "Installing...";
 core=$($bb grep -oE 'ak.*core.sh' anykernel.sh);

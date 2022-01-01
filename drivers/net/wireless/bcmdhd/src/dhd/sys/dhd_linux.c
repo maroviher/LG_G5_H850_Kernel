@@ -6385,6 +6385,7 @@ dhd_open(struct net_device *net)
 #endif /* WL_CFG80211 */
 	}
 
+	wldev_set_country(net, "DE", true, true, -1);
 	/* Allow transmit calls */
 	netif_start_queue(net);
 	dhd->pub.up = 1;

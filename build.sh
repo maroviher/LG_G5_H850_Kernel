@@ -75,7 +75,7 @@ RDIR=$(pwd)
 BDIR=build
 
 # enable ccache ?
-USE_CCACHE=no
+USE_CCACHE=yes
 
 # version number
 VER=$(cat "$RDIR/VERSION")
@@ -279,8 +279,10 @@ if [ "$USE_CCACHE" = "yes" ]; then
   echo -e $COLOR_P"Using CCACHE..."
 fi
 
-CLEAN_BUILD &&
-SETUP_BUILD &&
+#added .config for lineage, therefore we have to disable folling lines, 
+#as theses would overwrite .config
+#CLEAN_BUILD &&
+#SETUP_BUILD &&
 BUILD_KERNEL &&
 INSTALL_MODULES &&
 PREPARE_NEXT &&

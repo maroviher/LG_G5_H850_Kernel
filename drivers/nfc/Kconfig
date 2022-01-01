@@ -97,3 +97,6 @@ config CXD224X_NFC_RST
     default y
     ---help---
       Say yes if you want to use cxd224x NFC RST(external XRST pin) control.
+
+
+source "drivers/nfc/pn548/Kconfig"
